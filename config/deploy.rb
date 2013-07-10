@@ -12,7 +12,7 @@ load "config/recipes/check"
 # load "config/recipes/custom_config"
 
 server "176.58.107.6", :web, :app, :db, primary: true
-
+default_run_options[:pty] = true
 set :application, "testcap"  # configure at least THIS...
 set :user, "root"         # ...THIS...
 set :domain, "176.58.107.6"
@@ -33,5 +33,10 @@ after "deploy", "deploy:cleanup" # last 5 releases
 # and maybe some of THIS
 set :ruby_version, "2.0.0-p195"   # default 1.9.3-p194
 set :use_rmagick, true            # default false
-# set :use_rbenv_gemset, false      # default true
+#set :use_rbenv_gemset, false      # default true
 # set :newrelic_key, "???"          # required for `newrelic` and `newrelic_sysmond`
+set :default_environment, {
+  'RBENV_ROOT' => "$HOME/.rbenv/",
+  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
+}
+#set :bundle_flags, "--quiet --binstubs --shebang ruby-local-exec"
